@@ -1,3 +1,132 @@
+
+Gemini
+Convert chat to PDF
+Convert chat to PDF
+Open this chat in Acrobat
+New chat
+Search chats
+Images
+Library
+New notebook
+Build College Football TV Guide Website
+Interior Design Help Request
+Outdoor Furniture Color Scheme Suggestions
+Food Log and Nutritional Analysis
+Running Training and Diet Plan
+Extended Stroke Motorized TV Lifts
+Learn APIs: From Networking to Code
+Download College Football TV Schedule
+Analyze Multiview Department Spend
+Extracting Peach Flavor for Tea
+Card Points Calculation
+Sparkling Tea: Liquid and Method
+Pizza Wine Pairing: Cabernet-Sangiovese Blends
+Custom Outdoor TV Cabinet Design
+Cerner AI Note Reporting Tools
+Dollar General Ice Cream Availability
+Affordable, Durable Den Club Chairs
+Measuring Cerner Chart Touches
+Claude's Business AI Advantages Explained
+AI Scheduling Assistant Development Strategies
+Rick Bayless's Five-Ingredient Guacamole
+Metabolic Pharmacology for Atherosclerosis Prevention
+October Travel Recommendations: Europe & South America
+Radiology Information System Selection Guide
+Sparkling Rosé: A Professional's Choice
+Remote Wipe of Corporate Email
+Alcohol's Neurological Effects Explained
+New Orleans to Bari Travel Options
+Corfu and Dalmatian Coast Itinerary
+Autumn European Harvest Cultural Experiences
+Offset Smoker Recommendation Request Denied
+Sugar-Free Low-Fat Lemon Pie Recipe
+Sharpening Your Wine Palate
+Sparkling Wine Recommendations by Price
+Zinfandel Wine Recommendations and Pairings
+Sparkling Rosé Recommendations For Casual Drinkers
+Timorasso Drinking Window Advice
+Sicily Vacation 2026
+Pinot Noir Styles For Family Tasting
+Conversation with Gemini
+I want to build a website for personal use.  It is as much a learning experience as it is functional.  The web site will be used on my phone and my desktop PC as a TV guide of college football games prioritized by my degree of interest in the matchup.  Ideally, I would like to go to the page, select a date, and see all of the games scheduled that day by time of day.  Each game will be color coded so the most important games stand out, the less important games are slightly less obvious, and the unimportant games are plain black-on-white text.  I have the entire thing working properly in an excel spreadsheet but I cannot easily access it on my phone.  I will import the tabular data listing the matchups weekly.  I need you to recommend a free web-hosting service and help me build the site.  Again, I hope to see a page that has some sort of date picker that will present the games for that day in a visually-differentiated manner so I can immediately identify the critical games.  Should I upload a copy of the excel file now?
+
+Yes, please upload or share the details of your Excel file! Seeing how your columns are structured and how you calculate or assign interest levels will allow us to convert it seamlessly into a clean, mobile-responsive web app.
+
+For a lightweight, single-page app that runs smoothly on both desktop and mobile, GitHub Pages or Netlify are ideal free web-hosting services:
+
+GitHub Pages: Completely free, highly reliable, and hosts your web application straight from a repository.  
+The ProTec Professional Training Institute
+
+Netlify / Vercel: Free tier options that let you drag and drop your website files or connect a code repository with instant deployments.
+
+Recommended Architecture & Tech Stack
+To keep the application fast and simple to maintain, build it as a Single Page Application (SPA) using HTML, CSS, JavaScript, and modern design standards:
+
+Data Format (JSON or CSV): Convert your Excel spreadsheet into a .json file or export it as a .csv. JavaScript can parse this instantly without needing a back-end database.
+
+Front-End Design (HTML/CSS): Use CSS Grid/Flexbox with media queries so the guide automatically scales from a multi-column desktop layout to a card-based view on mobile screens.
+
+Date Picker & Filtering: A standard HTML <input type="date"> element combined with quick-filter buttons ("Today", "Saturday", "Show All").
+
+Dynamic Color-Coding: Apply custom CSS classes based on your interest scale (e.g., tier/priority ranks):
+
+Tier 1 (High Interest): Bold highlighted cards with vibrant accent borders/backgrounds (e.g., gold or bold primary colors) so marquee matchups stand out instantly.
+
+Tier 2 (Moderate Interest): Muted background shading or subtle colored left borders to remain easily visible.
+
+Tier 3 (Low Interest): Simple, clean black-and-white text on neutral backgrounds to avoid visual clutter.
+
+Key Data Fields Needed from Your Excel File
+When uploading or sharing your spreadsheet, ensure it includes:
+
+Date & Time: Kickoff date and time (along with time zone, e.g., ET or CT).
+
+Matchup: Away Team vs. Home Team (and ranking/seeds if applicable).
+
+Network / Channel: Where to watch (ESPN, CBS, FOX, ABC, Streaming, etc.).
+
+Interest Rating / Priority Tier: The numerical rank or category you use to color-code each game.
+
+Whenever you are ready, attach or copy/paste a sample of your Excel data, and we can generate the starter code and step-by-step hosting instructions!
+
+Here is a copy of the excel file. The tab named GameViewer is the one I use to select the date.
+
+Got it. Whether you're looking to set up interactive date selection, write formulas to auto-populate the day's matchups, or fix existing lookups, here are a few key ways we can optimize the GameViewer tab:
+
+Dynamic Game Filtering: Setting up FILTER or XLOOKUP formulas to pull all scheduled games, kickoff times, networks, and matchups for whatever date is selected.
+
+Date Selection Drop-Down: Configuring Data Validation so you can pick game dates cleanly from a drop-down list without formatting errors.
+
+Broadcast & Channel Logic: Automating network tags, time zone adjustments, or highlighting priority games automatically based on date selections.
+
+Layout & Visual Tweaks: Formatting the viewer into a clean, easy-to-read dashboard for game days.
+
+What specifically would you like to build, fix, or analyze on the GameViewer tab today?
+
+Nothing. The spreadsheet works perfectly. All I need from you is how to get the same functionality from a web site hosted on a free service.
+
+Here is a complete, step-by-step guide to building a responsive, mobile-friendly College Football TV Guide web application and hosting it 100% free using GitHub Pages.
+
+We analyzed your Excel file structure (Data sheet formulas and GameViewer conditional formatting rules):
+
+Watch Score Tiering:
+
+Tier 1 (Critical / Must Watch): Score > 22 (Gold / Bold Accent)
+
+Tier 2 (Heavy Interest): Score > 18 (Green Highlight)
+
+Tier 3 (Moderate Interest): Score > 11 (Blue / Soft Accent)
+
+Tier 4 (Low / Neutral): Score ≤ 11 (Plain Black text on White background)
+
+Date Filtering: Select a date to instantly filter matchups and sort them by game time.
+
+Step 1: Export Your Spreadsheet Data to JSON
+Instead of needing a complex backend database, your web site can read a light JSON file containing the game data.
+
+In Excel, save a file named games.json in the same directory as your site code, or create a file named games.json with the following format (including all rows from your Data tab):
+
+JSON
 [
   {
     "date": "2026-08-28",
@@ -91,3 +220,973 @@
     "score": 9
   }
 ]
+Step 2: Create index.html
+Create a file named index.html. This single file contains the layout, CSS styles for mobile/desktop, and the JavaScript to render and color-code the games based on your exact spreadsheet rules.
+
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CFB Game Viewer</title>
+  <style>
+    :root {
+      --bg-color: #f4f6f8;
+      --card-bg: #ffffff;
+      --text-color: #111111;
+      --border-color: #e0e0e0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 16px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 12px 0;
+      font-size: 1.6rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--card-bg);
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .date-picker-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    select, input[type="date"] {
+      padding: 8px 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      background: #fff;
+    }
+
+    .games-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .game-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 14px 16px;
+      border-left: 6px solid #ccc;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .matchup {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .meta-info {
+      font-size: 0.88rem;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .score-badge {
+      font-size: 0.85rem;
+      font-weight: bold;
+      padding: 4px 8px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    /* Color Coding Rules matching your Excel sheet */
+    /* Tier 1: Score > 22 */
+    .tier-critical {
+      border-left-color: #d97706;
+      background-color: #fffbeb;
+    }
+    .tier-critical .matchup {
+      color: #92400e;
+      font-weight: 800;
+    }
+    .tier-critical .score-badge {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    /* Tier 2: Score > 18 */
+    .tier-heavy {
+      border-left-color: #16a34a;
+      background-color: #f0fdf4;
+    }
+    .tier-heavy .matchup {
+      color: #166534;
+      font-weight: 700;
+    }
+    .tier-heavy .score-badge {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    /* Tier 3: Score > 11 */
+    .tier-moderate {
+      border-left-color: #2563eb;
+      background-color: #eff6ff;
+    }
+    .tier-moderate .matchup {
+      color: #1e40af;
+    }
+    .tier-moderate .score-badge {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    /* Tier 4: Score <= 11 (Plain black text on white) */
+    .tier-neutral {
+      border-left-color: #9ca3af;
+      background-color: #ffffff;
+    }
+    .tier-neutral .score-badge {
+      background: #f3f4f6;
+      color: #4b5563;
+    }
+
+    .no-games {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+      background: #fff;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>🏈 College Football TV Guide</h1>
+  </header>
+
+  <div class="controls">
+    <div class="date-picker-group">
+      <label for="dateSelect">Select Date:</label>
+      <select id="dateSelect"></select>
+    </div>
+  </div>
+
+  <div id="gamesContainer" class="games-list"></div>
+</div>
+
+<script>
+  let gamesData = [];
+
+  // Fetch games.json
+  async function loadGames() {
+    try {
+      const response = await fetch('games.json');
+      gamesData = await response.json();
+      populateDateSelector();
+    } catch (err) {
+      console.error('Failed to load games data:', err);
+      document.getElementById('gamesContainer').innerHTML = '<div class="no-games">Error loading schedule data. Make sure games.json exists.</div>';
+    }
+  }
+
+  function populateDateSelector() {
+    const dateSelect = document.getElementById('dateSelect');
+    const uniqueDates = [...new Set(gamesData.map(g => g.date))].sort();
+
+    dateSelect.innerHTML = '';
+    uniqueDates.forEach(d => {
+      const option = document.createElement('option');
+      option.value = d;
+      
+      // Format date for dropdown (e.g. Saturday, Aug 29)
+      const dateObj = new Date(d + 'T00:00:00');
+      option.textContent = dateObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+      dateSelect.appendChild(option);
+    });
+
+    dateSelect.addEventListener('change', (e) => renderGames(e.target.value));
+
+    // Default to the first date available
+    if (uniqueDates.length > 0) {
+      renderGames(uniqueDates[0]);
+    }
+  }
+
+  function getTierClass(score) {
+    if (score > 22) return 'tier-critical';
+    if (score > 18) return 'tier-heavy';
+    if (score > 11) return 'tier-moderate';
+    return 'tier-neutral';
+  }
+
+  function renderGames(selectedDate) {
+    const container = document.getElementById('gamesContainer');
+    const filteredGames = gamesData.filter(g => g.date === selectedDate);
+
+    if (filteredGames.length === 0) {
+      container.innerHTML = '<div class="no-games">No games scheduled for this date.</div>';
+      return;
+    }
+
+    container.innerHTML = filteredGames.map(game => {
+      const tierClass = getTierClass(game.score);
+      return `
+        <div class="game-card ${tierClass}">
+          <div>
+            <div class="matchup">${game.matchup}</div>
+            <div class="meta-info">⏰ ${game.time} &nbsp;|&nbsp; 📺 ${game.network}</div>
+          </div>
+          <div class="score-badge">Score: ${game.score}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  loadGames();
+</script>
+
+</body>
+</html>
+Step 3: Host the Web Site Free on GitHub Pages
+Create a Free GitHub Account: Go to GitHub.com and sign up if you don't already have an account.
+
+Create a New Repository:
+
+Click the + icon in the top-right corner and select New repository.
+
+Name your repository (e.g., cfb-tv-guide).
+
+Keep it Public (required for free GitHub Pages).
+
+Click Create repository.
+
+Upload Your Files:
+
+Click Upload an existing file.
+
+Drag and drop index.html and games.json into the upload box.
+
+Click Commit changes.
+
+Enable GitHub Pages:
+
+Go to the Settings tab of your repository.
+
+On the left sidebar, click Pages (under Code and automation).
+
+Under Build and deployment -> Branch, select main (or master) and keep the folder set to / (root).
+
+Click Save.
+
+Within 1–2 minutes, GitHub will give you a live URL (e.g., [https://yourusername.github.io/cfb-tv-guide/](https://yourusername.github.io/cfb-tv-guide/)).
+
+Accessing it on Mobile
+Open that link on your iPhone or Android browser, and tap "Add to Home Screen" in your browser settings. It will look and act like a native app on your phone.
+
+When you want to update weekly game scores or matchups, simply update your games.json file and upload the updated version to GitHub!
+
+It works. You are incredible
+
+That is awesome to hear!
+
+Since you now have the site up and running, you can bookmark it on your phone or use your browser's "Add to Home Screen" feature to launch it like a native app whenever Saturday rolls around.
+
+Whenever you update your spreadsheet with new week-by-week matchups, all you have to do is update your games.json file in your GitHub repository, and your live guide will automatically reflect the changes.
+
+Enjoy tracking the games, and let me know if you ever want to tweak the design, add team logos, or build out new features!
+
+Please export the pasted text data as a json file:
+
+Your games.json file has been generated from the image data 
+JSON icon
+games
+ JSON 
+Open
+.
+
+All 85 game records have been converted into standard YYYY-MM-DD date formatting so they work directly with your website's date picker.
+
+Standard Format Preview (games.json)
+JSON
+[
+  {
+    "date": "2026-08-28",
+    "matchup": "Idaho at Cal Poly",
+    "time": "10:00pm",
+    "network": "ESPN",
+    "score": 0
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "TCU at North Carolina",
+    "time": "11:00am",
+    "network": "ESPN",
+    "score": 16
+  },
+  ...
+  {
+    "date": "2026-09-05",
+    "matchup": "Clemson at LSU",
+    "time": "6:30pm",
+    "network": "ABC",
+    "score": 32
+  },
+  ...
+  {
+    "date": "2026-09-05",
+    "matchup": "Western Kentucky at Nevada",
+    "time": "9:30pm",
+    "network": "CBSSN",
+    "score": 2
+  }
+]
+How to update your GitHub repository:
+Download or copy the contents of the generated games.json file.
+
+Go to your GitHub repository (cfb-tv-guide).
+
+Click on games.json -> click the edit (pencil) icon (or upload and overwrite games.json).
+
+Commit your changes.
+
+Your web app will update with all 85 matchups across August 28 through September 5!
+
+
+
+
+Gemini is AI and can make mistakes.
+
+
+[
+  {
+    "date": "2026-08-28",
+    "matchup": "Idaho at Cal Poly",
+    "time": "10:00pm",
+    "network": "ESPN",
+    "score": 0
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "TCU at North Carolina",
+    "time": "11:00am",
+    "network": "ESPN",
+    "score": 16
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "San Jose State at USC",
+    "time": "2:00pm",
+    "network": "NBC",
+    "score": 16
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "NC State at Virginia",
+    "time": "2:30pm",
+    "network": "ESPN",
+    "score": 17
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "Jacksonville State at North Dakota State",
+    "time": "4:30pm",
+    "network": "CBSSN",
+    "score": 7
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "Hawai'i at Stanford",
+    "time": "6:00pm",
+    "network": "ACC Network",
+    "score": 8
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "New Mexico State at Florida State",
+    "time": "6:00pm",
+    "network": "ESPN/CW",
+    "score": 11
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "Memphis at UNLV",
+    "time": "9:00pm",
+    "network": "Fox",
+    "score": 14
+  },
+  {
+    "date": "2026-09-03",
+    "matchup": "UMass at Rutgers",
+    "time": "5:00pm",
+    "network": "Big Ten Network",
+    "score": 6
+  },
+  {
+    "date": "2026-09-03",
+    "matchup": "Akron at Wake Forest",
+    "time": "6:00pm",
+    "network": "ACC Network",
+    "score": 7
+  },
+  {
+    "date": "2026-09-03",
+    "matchup": "Arkansas-Pine Bluff at Missouri",
+    "time": "7:00pm",
+    "network": "SEC Network",
+    "score": 10
+  },
+  {
+    "date": "2026-09-03",
+    "matchup": "Colorado at Georgia Tech",
+    "time": "7:00pm",
+    "network": "ESPN",
+    "score": 15
+  },
+  {
+    "date": "2026-09-03",
+    "matchup": "Eastern Illinois at Minnesota",
+    "time": "7:00pm",
+    "network": "Peacock",
+    "score": 9
+  },
+  {
+    "date": "2026-09-03",
+    "matchup": "Idaho at Utah",
+    "time": "8:00pm",
+    "network": "ESPNU",
+    "score": 8
+  },
+  {
+    "date": "2026-09-03",
+    "matchup": "UAB at Illinois",
+    "time": "8:00pm",
+    "network": "Big Ten Network",
+    "score": 14
+  },
+  {
+    "date": "2026-09-04",
+    "matchup": "Indiana State at Purdue",
+    "time": "6:00pm",
+    "network": "Big Ten Network",
+    "score": 6
+  },
+  {
+    "date": "2026-09-04",
+    "matchup": "San Jose State at Eastern Michigan",
+    "time": "6:30pm",
+    "network": "ESPN+",
+    "score": 5
+  },
+  {
+    "date": "2026-09-04",
+    "matchup": "UTEP at Oklahoma",
+    "time": "7:00pm",
+    "network": "SECN+",
+    "score": 13
+  },
+  {
+    "date": "2026-09-04",
+    "matchup": "LIU at Kansas",
+    "time": "7:00pm",
+    "network": "ESPNU",
+    "score": 6
+  },
+  {
+    "date": "2026-09-04",
+    "matchup": "Toledo at Michigan State",
+    "time": "7:00pm",
+    "network": "FS1",
+    "score": 11
+  },
+  {
+    "date": "2026-09-04",
+    "matchup": "Miami at Stanford",
+    "time": "8:00pm",
+    "network": "ESPN",
+    "score": 17
+  },
+  {
+    "date": "2026-09-04",
+    "matchup": "Fresno State at USC",
+    "time": "8:00pm",
+    "network": "Fox",
+    "score": 16
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Rhode Island at Temple",
+    "time": "1:00pm",
+    "network": "ESPN+",
+    "score": 3
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "East Carolina at Alabama",
+    "time": "11:00pm",
+    "network": "ABC",
+    "score": 16
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Oregon State at Houston",
+    "time": "11:00pm",
+    "network": "ESPN",
+    "score": 15
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Coastal Carolina at West Virginia",
+    "time": "11:00pm",
+    "network": "TNT/HBO Max",
+    "score": 10
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "New Hampshire at Syracuse",
+    "time": "11:00pm",
+    "network": "ACC Network",
+    "score": 8
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "North Texas at Indiana",
+    "time": "11:00pm",
+    "network": "FOX",
+    "score": 13
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Ohio at Nebraska",
+    "time": "11:00pm",
+    "network": "FS1",
+    "score": 14
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Bryant at Army",
+    "time": "11:00pm",
+    "network": "CBSSN",
+    "score": 6
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Liberty at James Madison",
+    "time": "11:00pm",
+    "network": "ESPNU",
+    "score": 11
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Miami (OH) at Pitt",
+    "time": "11:30pm",
+    "network": "ESPN Unlimited and the CW Network",
+    "score": 13
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Ball State at Ohio State",
+    "time": "11:30pm",
+    "network": "Big Ten Network",
+    "score": 14
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Kent State at South Carolina",
+    "time": "11:45pm",
+    "network": "SEC Network",
+    "score": 13
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Youngstown State at Kentucky",
+    "time": "12:00pm",
+    "network": "SECN+",
+    "score": 10
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Southeast Missouri State at Iowa State",
+    "time": "12:00pm",
+    "network": "ESPN+",
+    "score": 5
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Duquesne at Air Force",
+    "time": "12:00pm",
+    "network": "MW+",
+    "score": 3
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Tennessee State at Georgia",
+    "time": "2:00pm",
+    "network": "SECN+",
+    "score": 12
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Auburn at Baylor",
+    "time": "2:30pm",
+    "network": "ABC",
+    "score": 22
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Furman at Tennessee",
+    "time": "2:30pm",
+    "network": "SECN+",
+    "score": 12
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Texas State at Texas",
+    "time": "2:30pm",
+    "network": "ESPN",
+    "score": 14
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Boston College at Cincinnati",
+    "time": "2:30pm",
+    "network": "FOX",
+    "score": 11
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Tulane at Duke",
+    "time": "2:30pm",
+    "network": "ACC Network",
+    "score": 18
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Boise State at Oregon",
+    "time": "2:30pm",
+    "network": "CBS",
+    "score": 17
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Marshall at Penn State",
+    "time": "2:30pm",
+    "network": "FS1",
+    "score": 16
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "The Citadel at Charlotte",
+    "time": "2:30pm",
+    "network": "ESPN+",
+    "score": 1
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Towson at Navy",
+    "time": "2:30pm",
+    "network": "CBSSN",
+    "score": 3
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "UT Rio Grande Valley at UTSA",
+    "time": "2:30pm",
+    "network": "ESPN+",
+    "score": 1
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Fordham at North Dakota State",
+    "time": "2:30pm",
+    "network": "ESPN Unlimited and The CW Network",
+    "score": 6
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Maine at App State",
+    "time": "2:30pm",
+    "network": "ESPN+",
+    "score": 3
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Oklahoma State at Tulsa",
+    "time": "2:45pm",
+    "network": "ESPNU",
+    "score": 10
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "North Alabama at Arkansas",
+    "time": "3:15pm",
+    "network": "SEC Network",
+    "score": 9
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Northern Illinois at Iowa",
+    "time": "3:15pm",
+    "network": "Big Ten Network",
+    "score": 11
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Alcorn State at Southern Miss",
+    "time": "4:00pm",
+    "network": "ESPN+",
+    "score": 3
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Wyoming at Colorado State",
+    "time": "5:00pm",
+    "network": "USA Network",
+    "score": 7
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Norfolk State at Old Dominion",
+    "time": "5:00pm",
+    "network": "ESPN+",
+    "score": 3
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Missouri State at Texas A&M",
+    "time": "6:00pm",
+    "network": "ESPN",
+    "score": 13
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Austin Peay at Vanderbilt",
+    "time": "6:00pm",
+    "network": "SECN+",
+    "score": 10
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Abilene Christian at Texas Tech",
+    "time": "6:00pm",
+    "network": "FS1",
+    "score": 10
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Nicholls at Kansas State",
+    "time": "6:00pm",
+    "network": "ESPN+",
+    "score": 10
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Idaho State at Utah State",
+    "time": "6:00pm",
+    "network": "CBSSN",
+    "score": 1
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Arkansas State at Memphis",
+    "time": "6:00pm",
+    "network": "ESPN+",
+    "score": 6
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Houston Christian at Rice",
+    "time": "6:00pm",
+    "network": "ESPN+",
+    "score": 6
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Florida International at South Florida",
+    "time": "6:00pm",
+    "network": "ESPN+",
+    "score": 4
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Murray State at Middle Tennessee",
+    "time": "6:00pm",
+    "network": "ESPN+",
+    "score": 1
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Eastern Kentucky at Jacksonville State",
+    "time": "6:00pm",
+    "network": "ESPN+",
+    "score": 1
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Sam Houston at Troy",
+    "time": "6:00pm",
+    "network": "ESPN+",
+    "score": 4
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Clemson at LSU",
+    "time": "6:30pm",
+    "network": "ABC",
+    "score": 32
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "UL Monroe at Mississippi State",
+    "time": "6:30pm",
+    "network": "ESPNU",
+    "score": 10
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "VMI at Virginia Tech",
+    "time": "6:30pm",
+    "network": "ACC Network",
+    "score": 10
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Western Michigan at Michigan",
+    "time": "6:30pm",
+    "network": "NBC",
+    "score": 12
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Northwestern State at Louisiana Tech",
+    "time": "6:30pm",
+    "network": "ESPN+",
+    "score": 10
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Florida Atlantic at Florida",
+    "time": "6:45pm",
+    "network": "SEC Network",
+    "score": 13
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Utah Tech at BYU",
+    "time": "7:00pm",
+    "network": "ESPN+",
+    "score": 7
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Hampton at Maryland",
+    "time": "7:00pm",
+    "network": "Big Ten Network",
+    "score": 7
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "South Dakota State at Northwestern",
+    "time": "7:00pm",
+    "network": "Big Ten Network",
+    "score": 13
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Lamar at Louisiana Lafayette",
+    "time": "7:00pm",
+    "network": "ESPN+",
+    "score": 6
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Morgan State at Arizona State",
+    "time": "8:00pm",
+    "network": "ESPN+",
+    "score": 9
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Mercyhurst at New Mexico State",
+    "time": "8:00pm",
+    "network": "ESPN+",
+    "score": 1
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Northern Arizona at Arizona",
+    "time": "8:30pm",
+    "network": "ESPN+",
+    "score": 7
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Portland State at San Diego State",
+    "time": "8:30pm",
+    "network": "USA Network",
+    "score": 4
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "UNLV at Hawai'i",
+    "time": "9:00pm",
+    "network": "ESPN Unlimited and The CW Network",
+    "score": 11
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Central Michigan at New Mexico",
+    "time": "9:00pm",
+    "network": "FS1",
+    "score": 2
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "UCLA at Cal",
+    "time": "9:30pm",
+    "network": "ESPN",
+    "score": 17
+  },
+  {
+    "date": "2026-09-05",
+    "matchup": "Western Kentucky at Nevada",
+    "time": "9:30pm",
+    "network": "CBSSN",
+    "score": 2
+  }
+]
+games.json
+Displaying games.json.
