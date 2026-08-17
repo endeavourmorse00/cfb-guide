@@ -593,5 +593,46 @@
     "time": "9:30pm",
     "network": "CBSSN",
     "score": 2
+  {
+    "date": "2026-09-06",
+    "matchup": "Texas Southern at Prairie View A&M",
+    "time": "11:00am",
+    "network": "ESPN2",
+    "score": 0
+  },
+  {
+    "date": "2026-09-06",
+    "matchup": "Florida A&M at South Carolina State",
+    "time": "2:00pm",
+    "network": "ESPN2",
+    "score": 0
+  },
+  {
+    "date": "2026-09-06",
+    "matchup": "Washington State at Washington",
+    "time": "3:00pm",
+    "network": "NBC",
+    "score": 15
+  },
+  {
+    "date": "2026-09-06",
+    "matchup": "Ole Miss at Louisville",
+    "time": "6:30pm",
+    "network": "ABC",
+    "score": 24
+  },
+  {
+    "date": "2026-09-06",
+    "matchup": "Notre Dame at Wisconsin",
+    "time": "6:30pm",
+    "network": "NBC",
+    "score": 20
+  },
+  {
+    "date": "2026-09-07",
+    "matchup": "SMU at Florida State",
+    "time": "6:30pm",
+    "network": "ESPN",
+    "score": 20
   }
 ]
