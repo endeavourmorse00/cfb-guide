@@ -5,36 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>College Football TV Guide</title>
   <style>
-    :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --accent: #38bdf8;
-      --text: #f8fafc;
-      --subtext: #94a3b8;
-      --border: #334155;
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      margin: 0;
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text);
-      margin: 0;
-      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 100vh;
     }
 
     h1 {
-      margin-bottom: 20px;
-      color: var(--accent);
-      font-size: 1.8rem;
+      margin-bottom: 24px;
+      color: #0f172a;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
     }
 
     .controls {
       display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
+      gap: 16px;
+      margin-bottom: 32px;
       flex-wrap: wrap;
       justify-content: center;
     }
@@ -42,47 +43,56 @@
     .control-group {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
 
     label {
       font-size: 0.75rem;
-      color: var(--subtext);
+      color: #475569;
       text-transform: uppercase;
+      font-weight: 700;
       letter-spacing: 0.05em;
     }
 
     input, select {
-      background-color: var(--card-bg);
-      color: var(--text);
-      border: 1px solid var(--border);
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border: 1px solid #cbd5e1 !important;
       padding: 10px 14px;
       border-radius: 8px;
       font-size: 0.95rem;
+      font-weight: 500;
       outline: none;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     }
 
     input:focus, select:focus {
-      border-color: var(--accent);
+      border-color: #2563eb !important;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
       width: 100%;
-      max-width: 1000px;
+      max-width: 1100px;
     }
 
     .card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
+      background-color: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
       border-radius: 12px;
-      padding: 16px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     }
 
     .card-header {
@@ -93,36 +103,65 @@
     }
 
     .time {
-      font-size: 0.85rem;
-      color: var(--accent);
+      font-size: 0.875rem;
+      color: #475569;
       font-weight: 600;
     }
 
+    /* Score Badges */
     .score-badge {
-      background-color: var(--border);
-      color: var(--text);
-      padding: 4px 8px;
-      border-radius: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
       font-size: 0.8rem;
-      font-weight: bold;
+      font-weight: 700;
+    }
+
+    .score-low {
+      background-color: #f1f5f9;
+      color: #475569;
+    }
+
+    .score-mid {
+      background-color: #e0f2fe;
+      color: #0369a1;
+    }
+
+    .score-good {
+      background-color: #dcfce7;
+      color: #15803d;
+    }
+
+    .score-high {
+      background-color: #fef3c7;
+      color: #b45309;
+    }
+
+    .score-elite {
+      background-color: #fce7f3;
+      color: #be185d;
+      border: 1px solid #f472b6;
     }
 
     .matchup {
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #0f172a !important;
       margin-bottom: 12px;
+      line-height: 1.4;
     }
 
     .network {
-      font-size: 0.85rem;
-      color: var(--subtext);
+      font-size: 0.875rem;
+      color: #64748b;
+      font-weight: 500;
     }
 
     .no-games {
       grid-column: 1 / -1;
       text-align: center;
-      color: var(--subtext);
-      margin-top: 40px;
+      color: #64748b;
+      margin-top: 48px;
+      font-size: 1.1rem;
     }
   </style>
 </head>
@@ -158,7 +197,6 @@
         const response = await fetch('games.json');
         allGames = await response.json();
         
-        // Default to the first available date in data if present
         if (allGames.length > 0) {
           document.getElementById('datePicker').value = allGames[0].date;
         }
@@ -167,6 +205,14 @@
       } catch (err) {
         console.error('Error loading games:', err);
       }
+    }
+
+    function getScoreClass(score) {
+      if (score >= 20) return 'score-elite';
+      if (score >= 15) return 'score-high';
+      if (score >= 10) return 'score-good';
+      if (score >= 5)  return 'score-mid';
+      return 'score-low';
     }
 
     function renderGames() {
@@ -187,12 +233,13 @@
       }
 
       filtered.forEach(game => {
+        const scoreClass = getScoreClass(game.score || 0);
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
           <div class="card-header">
             <span class="time">${game.time}</span>
-            <span class="score-badge">Score: ${game.score}</span>
+            <span class="score-badge ${scoreClass}">Score: ${game.score}</span>
           </div>
           <div class="matchup">${game.matchup}</div>
           <div class="network">📺 ${game.network}</div>
