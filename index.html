@@ -172,7 +172,7 @@
   <div class="controls">
     <div class="control-group">
       <label for="datePicker">Date</label>
-      <input type="date" id="datePicker">
+      <select id="datePicker"></select>
     </div>
 
     <div class="control-group">
@@ -259,6 +259,17 @@
       return 'score-low';
     }
 
+    function formatDateLabel(dateStr) {
+      const [year, month, day] = dateStr.split('-').map(Number);
+      const dateObj = new Date(year, month - 1, day);
+      return dateObj.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    }
+    
     function renderGames() {
       const selectedDate = document.getElementById('datePicker').value;
       const minScore = parseInt(document.getElementById('scoreFilter').value, 10);
