@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CFB Game Viewer</title>
+  <style>
+    :root {
+      --bg-color: #f4f6f8;
+      --card-bg: #ffffff;
+      --text-color: #111111;
+      --border-color: #e0e0e0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 16px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 12px 0;
+      font-size: 1.6rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--card-bg);
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .date-picker-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    select, input[type="date"] {
+      padding: 8px 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      background: #fff;
+    }
+
+    .games-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .game-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 14px 16px;
+      border-left: 6px solid #ccc;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .matchup {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .meta-info {
+      font-size: 0.88rem;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .score-badge {
+      font-size: 0.85rem;
+      font-weight: bold;
+      padding: 4px 8px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    /* Color Coding Rules matching your Excel sheet */
+    /* Tier 1: Score > 22 */
+    .tier-critical {
+      border-left-color: #d97706;
+      background-color: #fffbeb;
+    }
+    .tier-critical .matchup {
+      color: #92400e;
+      font-weight: 800;
+    }
+    .tier-critical .score-badge {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    /* Tier 2: Score > 18 */
+    .tier-heavy {
+      border-left-color: #16a34a;
+      background-color: #f0fdf4;
+    }
+    .tier-heavy .matchup {
+      color: #166534;
+      font-weight: 700;
+    }
+    .tier-heavy .score-badge {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    /* Tier 3: Score > 11 */
+    .tier-moderate {
+      border-left-color: #2563eb;
+      background-color: #eff6ff;
+    }
+    .tier-moderate .matchup {
+      color: #1e40af;
+    }
+    .tier-moderate .score-badge {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    /* Tier 4: Score <= 11 (Plain black text on white) */
+    .tier-neutral {
+      border-left-color: #9ca3af;
+      background-color: #ffffff;
+    }
+    .tier-neutral .score-badge {
+      background: #f3f4f6;
+      color: #4b5563;
+    }
+
+    .no-games {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+      background: #fff;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>🏈 College Football TV Guide</h1>
+  </header>
+
+  <div class="controls">
+    <div class="date-picker-group">
+      <label for="dateSelect">Select Date:</label>
+      <select id="dateSelect"></select>
+    </div>
+  </div>
+
+  <div id="gamesContainer" class="games-list"></div>
+</div>
+
+<script>
+  let gamesData = [];
+
+  // Fetch games.json
+  async function loadGames() {
+    try {
+      const response = await fetch('games.json');
+      gamesData = await response.json();
+      populateDateSelector();
+    } catch (err) {
+      console.error('Failed to load games data:', err);
+      document.getElementById('gamesContainer').innerHTML = '<div class="no-games">Error loading schedule data. Make sure games.json exists.</div>';
+    }
+  }
+
+  function populateDateSelector() {
+    const dateSelect = document.getElementById('dateSelect');
+    const uniqueDates = [...new Set(gamesData.map(g => g.date))].sort();
+
+    dateSelect.innerHTML = '';
+    uniqueDates.forEach(d => {
+      const option = document.createElement('option');
+      option.value = d;
+      
+      // Format date for dropdown (e.g. Saturday, Aug 29)
+      const dateObj = new Date(d + 'T00:00:00');
+      option.textContent = dateObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+      dateSelect.appendChild(option);
+    });
+
+    dateSelect.addEventListener('change', (e) => renderGames(e.target.value));
+
+    // Default to the first date available
+    if (uniqueDates.length > 0) {
+      renderGames(uniqueDates[0]);
+    }
+  }
+
+  function getTierClass(score) {
+    if (score > 22) return 'tier-critical';
+    if (score > 18) return 'tier-heavy';
+    if (score > 11) return 'tier-moderate';
+    return 'tier-neutral';
+  }
+
+  function renderGames(selectedDate) {
+    const container = document.getElementById('gamesContainer');
+    const filteredGames = gamesData.filter(g => g.date === selectedDate);
+
+    if (filteredGames.length === 0) {
+      container.innerHTML = '<div class="no-games">No games scheduled for this date.</div>';
+      return;
+    }
+
+    container.innerHTML = filteredGames.map(game => {
+      const tierClass = getTierClass(game.score);
+      return `
+        <div class="game-card ${tierClass}">
+          <div>
+            <div class="matchup">${game.matchup}</div>
+            <div class="meta-info">⏰ ${game.time} &nbsp;|&nbsp; 📺 ${game.network}</div>
+          </div>
+          <div class="score-badge">Score: ${game.score}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  loadGames();
+</script>
+
+</body>
+</html>

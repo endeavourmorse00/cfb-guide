@@ -1,0 +1,93 @@
+[
+  {
+    "date": "2026-08-28",
+    "matchup": "Idaho at Cal Poly",
+    "time": "10:00pm",
+    "network": "ESPN",
+    "score": 0
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "TCU at North Carolina",
+    "time": "11:00am",
+    "network": "ESPN",
+    "score": 16
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "San Jose State at USC",
+    "time": "2:00pm",
+    "network": "NBC",
+    "score": 16
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "NC State at Virginia",
+    "time": "2:30pm",
+    "network": "ESPN",
+    "score": 17
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "Jacksonville State at North Dakota State",
+    "time": "4:30pm",
+    "network": "CBSSN",
+    "score": 7
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "Hawai'i at Stanford",
+    "time": "6:00pm",
+    "network": "ACC Network",
+    "score": 8
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "New Mexico State at Florida State",
+    "time": "6:00pm",
+    "network": "ESPN/CW",
+    "score": 11
+  },
+  {
+    "date": "2026-08-29",
+    "matchup": "Memphis at UNLV",
+    "time": "9:00pm",
+    "network": "Fox",
+    "score": 14
+  },
+  {
+    "date": "2026-09-03",
+    "matchup": "UMass at Rutgers",
+    "time": "5:00pm",
+    "network": "Big Ten Network",
+    "score": 6
+  },
+  {
+    "date": "2026-09-03",
+    "matchup": "Akron at Wake Forest",
+    "time": "6:00pm",
+    "network": "ACC Network",
+    "score": 7
+  },
+  {
+    "date": "2026-09-03",
+    "matchup": "Arkansas-Pine Bluff at Missouri",
+    "time": "7:00pm",
+    "network": "SEC Network",
+    "score": 10
+  },
+  {
+    "date": "2026-09-03",
+    "matchup": "Colorado at Georgia Tech",
+    "time": "7:00pm",
+    "network": "ESPN",
+    "score": 15
+  },
+  {
+    "date": "2026-09-03",
+    "matchup": "Eastern Illinois at Minnesota",
+    "time": "7:00pm",
+    "network": "Peacock",
+    "score": 9
+  }
+]
