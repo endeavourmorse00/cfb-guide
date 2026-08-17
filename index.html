@@ -207,13 +207,34 @@
         allGames = await response.json();
         
         if (allGames.length > 0) {
-          document.getElementById('datePicker').value = allGames[0].date;
+          const defaultDate = getNearestFutureDate(allGames);
+          document.getElementById('datePicker').value = defaultDate;
         }
 
         renderGames();
       } catch (err) {
         console.error('Error loading games:', err);
       }
+    }
+
+    function getNearestFutureDate(games) {
+      if (!games || games.length === 0) return '';
+
+      // Get local today's date formatted as YYYY-MM-DD
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const todayStr = `${year}-${month}-${day}`;
+
+      // Get sorted list of unique game dates
+      const uniqueDates = [...new Set(games.map(g => g.date))].sort();
+
+      // Find the first date that is TODAY or in the FUTURE
+      const nextFutureDate = uniqueDates.find(d => d >= todayStr);
+
+      // Return nearest future date if available, otherwise default to the last game date
+      return nextFutureDate || uniqueDates[uniqueDates.length - 1];
     }
 
     function parseTimeString(timeStr) {
