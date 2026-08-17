@@ -202,58 +202,136 @@
     let allGames = [];
 
     // 1. Date formatting helper for nice dropdown labels (e.g. "Sat, Aug 29, 2026")
-function formatDateLabel(dateStr) {
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const dateObj = new Date(year, month - 1, day);
-  return dateObj.toLocaleDateString('en-US', {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric'
-  });
-}
-
-// 2. Updated loadGames function
-async function loadGames() {
-  try {
-    const response = await fetch('games.json');
-    allGames = await response.json();
-    
-    if (allGames && allGames.length > 0) {
-      // Get sorted unique dates
-      const uniqueDates = [...new Set(allGames.map(g => g.date))].sort();
-
-      const dateSelect = document.getElementById('datePicker');
-      dateSelect.innerHTML = '';
-      
-      // Populate dropdown options
-      uniqueDates.forEach(date => {
-        const option = document.createElement('option');
-        option.value = date;
-        option.textContent = formatDateLabel(date);
-        dateSelect.appendChild(option);
+    function formatDateLabel(dateStr) {
+      const [year, month, day] = dateStr.split('-').map(Number);
+      const dateObj = new Date(year, month - 1, day);
+      return dateObj.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
       });
-
-      // Find nearest future date (or default to first date)
-      const defaultDate = getNearestFutureDate(allGames);
-      dateSelect.value = defaultDate;
     }
 
-    // Explicitly call renderGames AFTER populating the dropdown
-    renderGames();
-  } catch (err) {
-    console.error('Error loading games:', err);
-  }
-}
+    // 2. Helper to find nearest future date
+    function getNearestFutureDate(games) {
+      if (!games || games.length === 0) return '';
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const todayStr = `${year}-${month}-${day}`;
 
-// 3. Make sure event listeners use the 'change' event
-document.getElementById('datePicker').addEventListener('change', renderGames);
-document.getElementById('scoreFilter').addEventListener('change', renderGames);
-document.getElementById('sortBy').addEventListener('change', renderGames);
+      const uniqueDates = [...new Set(games.map(g => g.date))].sort();
+      const nextFutureDate = uniqueDates.find(d => d >= todayStr);
+      return nextFutureDate || uniqueDates[uniqueDates.length - 1];
+    }
 
-// Initialize
-loadGames();
-    
+    // 3. Helper to convert time strings (e.g., "2:30pm") into minutes for chronological sorting
+    function parseTimeString(timeStr) {
+      if (!timeStr) return 0;
+      const match = timeStr.trim().match(/^(\d+):(\d+)\s*(am|pm)$/i);
+      if (!match) return 0;
+      let hours = parseInt(match[1], 10);
+      const minutes = parseInt(match[2], 10);
+      const period = match[3].toLowerCase();
+
+      if (period === 'pm' && hours < 12) hours += 12;
+      if (period === 'am' && hours === 12) hours = 0;
+
+      return hours * 60 + minutes;
+    }
+
+    // 4. Color class badge selector
+    function getScoreClass(score) {
+      if (score >= 20) return 'score-elite';
+      if (score >= 15) return 'score-high';
+      if (score >= 10) return 'score-good';
+      if (score >= 5)  return 'score-mid';
+      return 'score-low';
+    }
+
+    // 5. Render function
+    function renderGames() {
+      const selectedDate = document.getElementById('datePicker').value;
+      const minScore = parseInt(document.getElementById('scoreFilter').value, 10);
+      const sortCriteria = document.getElementById('sortBy').value;
+      const grid = document.getElementById('gamesGrid');
+      grid.innerHTML = '';
+
+      let filtered = allGames.filter(game => {
+        const matchesDate = !selectedDate || game.date === selectedDate;
+        const matchesScore = (game.score || 0) >= minScore;
+        return matchesDate && matchesScore;
+      });
+
+      filtered.sort((a, b) => {
+        if (sortCriteria === 'score') {
+          return (b.score || 0) - (a.score || 0);
+        } else if (sortCriteria === 'network') {
+          return (a.network || '').localeCompare(b.network || '');
+        } else {
+          return parseTimeString(a.time) - parseTimeString(b.time);
+        }
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '<div class="no-games">No games match your filters.</div>';
+        return;
+      }
+
+      filtered.forEach(game => {
+        const scoreClass = getScoreClass(game.score || 0);
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-header">
+            <span class="time">${game.time}</span>
+            <span class="score-badge ${scoreClass}">Score: ${game.score}</span>
+          </div>
+          <div class="matchup">${game.matchup}</div>
+          <div class="network">📺 ${game.network}</div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // 6. Fetch and load games
+    async function loadGames() {
+      try {
+        const response = await fetch('games.json');
+        allGames = await response.json();
+        
+        if (allGames && allGames.length > 0) {
+          const uniqueDates = [...new Set(allGames.map(g => g.date))].sort();
+
+          const dateSelect = document.getElementById('datePicker');
+          dateSelect.innerHTML = '';
+          
+          uniqueDates.forEach(date => {
+            const option = document.createElement('option');
+            option.value = date;
+            option.textContent = formatDateLabel(date);
+            dateSelect.appendChild(option);
+          });
+
+          const defaultDate = getNearestFutureDate(allGames);
+          dateSelect.value = defaultDate;
+        }
+
+        renderGames();
+      } catch (err) {
+        console.error('Error loading games:', err);
+      }
+    }
+
+    // 7. Event Listeners
+    document.getElementById('datePicker').addEventListener('change', renderGames);
+    document.getElementById('scoreFilter').addEventListener('change', renderGames);
+    document.getElementById('sortBy').addEventListener('change', renderGames);
+
+    // Initialize
+    loadGames();
   </script>
 </body>
 </html>
