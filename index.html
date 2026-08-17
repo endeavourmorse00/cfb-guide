@@ -109,15 +109,16 @@
     }
 
     .score-badge {
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 20px;
       font-size: 0.8rem;
       font-weight: 700;
     }
 
     .score-low {
-      background-color: #f1f5f9;
-      color: #475569;
+      background-color: #ffffff;
+      color: #000000;
+      border: 1px solid #cbd5e1;
     }
 
     .score-mid {
@@ -126,19 +127,19 @@
     }
 
     .score-good {
-      background-color: #dcfce7;
-      color: #15803d;
+      background-color: #7dd3fc;
+      color: #0c4a6e;
     }
 
     .score-high {
-      background-color: #fef3c7;
-      color: #b45309;
+      background-color: #2563eb;
+      color: #ffffff;
     }
 
     .score-elite {
-      background-color: #fce7f3;
-      color: #be185d;
-      border: 1px solid #f472b6;
+      background-color: #0f172a;
+      color: #ffffff;
+      border: 1px solid #1e293b;
     }
 
     .matchup {
@@ -179,8 +180,8 @@
       <label for="scoreFilter">Min Watch Score</label>
       <select id="scoreFilter">
         <option value="0">All Games (0+)</option>
-        <option value="5">Decent (5+)</option>
-        <option value="10" selected>Good (10+)</option>
+        <option value="5">I Am Bored (5+)</option>
+        <option value="10" selected>Beats Yardwork (10+)</option>
         <option value="15">Must Watch (15+)</option>
         <option value="20">Elite (20+)</option>
       </select>
@@ -244,9 +245,9 @@
 
     // 4. Color class badge selector
     function getScoreClass(score) {
-      if (score >= 20) return 'score-elite';
-      if (score >= 15) return 'score-high';
-      if (score >= 10) return 'score-good';
+      if (score >= 22) return 'score-elite';
+      if (score >= 18) return 'score-high';
+      if (score >= 11) return 'score-good';
       if (score >= 5)  return 'score-mid';
       return 'score-low';
     }
