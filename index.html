@@ -108,7 +108,6 @@
       font-weight: 600;
     }
 
-    /* Score Badges */
     .score-badge {
       padding: 4px 10px;
       border-radius: 20px;
@@ -185,6 +184,15 @@
         <option value="20">Elite (20+)</option>
       </select>
     </div>
+
+    <div class="control-group">
+      <label for="sortBy">Sort By</label>
+      <select id="sortBy">
+        <option value="time">Game Time</option>
+        <option value="score">Score (High to Low)</option>
+        <option value="network">Network (A–Z)</option>
+      </select>
+    </div>
   </div>
 
   <div class="grid" id="gamesGrid"></div>
@@ -207,6 +215,20 @@
       }
     }
 
+    function parseTimeString(timeStr) {
+      if (!timeStr) return 0;
+      const match = timeStr.trim().match(/^(\d+):(\d+)\s*(am|pm)$/i);
+      if (!match) return 0;
+      let hours = parseInt(match[1], 10);
+      const minutes = parseInt(match[2], 10);
+      const period = match[3].toLowerCase();
+
+      if (period === 'pm' && hours < 12) hours += 12;
+      if (period === 'am' && hours === 12) hours = 0;
+
+      return hours * 60 + minutes;
+    }
+
     function getScoreClass(score) {
       if (score >= 20) return 'score-elite';
       if (score >= 15) return 'score-high';
@@ -218,13 +240,24 @@
     function renderGames() {
       const selectedDate = document.getElementById('datePicker').value;
       const minScore = parseInt(document.getElementById('scoreFilter').value, 10);
+      const sortCriteria = document.getElementById('sortBy').value;
       const grid = document.getElementById('gamesGrid');
       grid.innerHTML = '';
 
-      const filtered = allGames.filter(game => {
+      let filtered = allGames.filter(game => {
         const matchesDate = !selectedDate || game.date === selectedDate;
         const matchesScore = (game.score || 0) >= minScore;
         return matchesDate && matchesScore;
+      });
+
+      filtered.sort((a, b) => {
+        if (sortCriteria === 'score') {
+          return (b.score || 0) - (a.score || 0);
+        } else if (sortCriteria === 'network') {
+          return (a.network || '').localeCompare(b.network || '');
+        } else {
+          return parseTimeString(a.time) - parseTimeString(b.time);
+        }
       });
 
       if (filtered.length === 0) {
@@ -250,6 +283,7 @@
 
     document.getElementById('datePicker').addEventListener('change', renderGames);
     document.getElementById('scoreFilter').addEventListener('change', renderGames);
+    document.getElementById('sortBy').addEventListener('change', renderGames);
 
     loadGames();
   </script>
