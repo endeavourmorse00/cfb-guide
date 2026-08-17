@@ -116,30 +116,40 @@
     }
 
     .score-low {
-      background-color: #ffffff;
-      color: #000000;
+      background-color: #ffffff !important;
+      color: #0f172a !important;
       border: 1px solid #cbd5e1;
     }
 
     .score-mid {
-      background-color: #e0f2fe;
-      color: #0369a1;
+      background-color: #f0f9ff !important;
+      border-color: #bae6fd !important;
     }
 
     .score-good {
-      background-color: #7dd3fc;
-      color: #0c4a6e;
+      background-color: #e0f2fe !important;
+      border-color: #7dd3fc !important;
     }
 
-    .score-high {
-      background-color: #2563eb;
-      color: #ffffff;
+    .card.score-high {
+       background-color: #2563eb !important;
+       color: #ffffff !important;
+    }
+    .card.score-high .time,
+    .card.score-high .matchup,
+    .card.score-high .network {
+      color: #ffffff !important;
     }
 
     .score-elite {
-      background-color: #0f172a;
-      color: #ffffff;
+      background-color: #0f172a !important;
+      color: #ffffff !important;
       border: 1px solid #1e293b;
+    }
+    .card.score-elite .time,
+    .card.score-elite .matchup,
+    .card.score-elite .network {
+      color: #ffffff !important;
     }
 
     .matchup {
@@ -284,7 +294,7 @@
       filtered.forEach(game => {
         const scoreClass = getScoreClass(game.score || 0);
         const card = document.createElement('div');
-        card.className = 'card';
+        card.className = `card ${scoreClass}`;
         card.innerHTML = `
           <div class="card-header">
             <span class="time">${game.time}</span>
