@@ -13,7 +13,7 @@
       background-color: #ffffff !important;
       color: #0f172a !important;
       margin: 0;
-      padding: 24px;
+      padding: 16px 12px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
@@ -24,30 +24,45 @@
       min-height: 100vh;
     }
 
+    header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
     h1 {
-      margin-bottom: 24px;
+      margin: 0 0 6px 0;
       color: #0f172a;
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: 800;
       letter-spacing: -0.025em;
     }
 
+    header p {
+      margin: 0;
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+
     .controls {
       display: flex;
-      gap: 16px;
-      margin-bottom: 32px;
+      gap: 10px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
       justify-content: center;
+      width: 100%;
+      max-width: 1100px;
     }
 
     .control-group {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
+      flex: 1 1 140px;
+      max-width: 220px;
     }
 
     label {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #475569;
       text-transform: uppercase;
       font-weight: 700;
@@ -58,12 +73,13 @@
       background-color: #ffffff !important;
       color: #0f172a !important;
       border: 1px solid #cbd5e1 !important;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.95rem;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.875rem;
       font-weight: 500;
       outline: none;
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      width: 100%;
     }
 
     input:focus, select:focus {
@@ -72,49 +88,74 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 10px;
       width: 100%;
       max-width: 1100px;
     }
 
+    /* Condensed Card Layout */
     .card {
       background-color: #ffffff !important;
       border: 1px solid #e2e8f0 !important;
-      border-radius: 12px;
-      padding: 18px;
+      border-radius: 8px;
+      padding: 10px 14px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.1);
     }
 
+    /* 3-Column Header: Time | Network | Score */
     .card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      gap: 8px;
     }
 
     .time {
-      font-size: 0.875rem;
+      font-size: 0.8rem;
       color: #475569;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .network {
+      font-size: 0.775rem;
+      color: #64748b;
       font-weight: 600;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 0 4px;
     }
 
     .score-badge {
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.8rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
       font-weight: 700;
+      white-space: nowrap;
     }
 
+    .matchup {
+      font-size: 0.975rem;
+      font-weight: 700;
+      color: #0f172a !important;
+      line-height: 1.25;
+      margin: 0;
+    }
+
+    /* Score Tier Colors */
     .score-low {
       background-color: #ffffff !important;
       color: #0f172a !important;
@@ -122,18 +163,18 @@
     }
 
     .score-mid {
-      background-color: #f0f9ff !important;
-      border-color: #bae6fd !important;
+      background-color: #f0f8ff !important;
+      border: 1px solid #bae6fd !important;
     }
 
     .score-good {
-      background-color: #e0f2fe !important;
-      border-color: #7dd3fc !important;
+      background-color: #b0d0e6 !important;
+      border: 1px solid #7dd3fc !important;
     }
 
     .card.score-high {
-       background-color: #2563eb !important;
-       color: #ffffff !important;
+      background-color: #4682b4 !important;
+      color: #ffffff !important;
     }
     .card.score-high .time,
     .card.score-high .matchup,
@@ -142,7 +183,7 @@
     }
 
     .score-elite {
-      background-color: #0f172a !important;
+      background-color: #003153 !important;
       color: #ffffff !important;
       border: 1px solid #1e293b;
     }
@@ -152,26 +193,12 @@
       color: #ffffff !important;
     }
 
-    .matchup {
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: #0f172a !important;
-      margin-bottom: 12px;
-      line-height: 1.4;
-    }
-
-    .network {
-      font-size: 0.875rem;
-      color: #64748b;
-      font-weight: 500;
-    }
-
     .no-games {
       grid-column: 1 / -1;
       text-align: center;
       color: #64748b;
-      margin-top: 48px;
-      font-size: 1.1rem;
+      margin-top: 32px;
+      font-size: 1rem;
     }
   </style>
   <script data-goatcounter="https://cfb-guide.goatcounter.com/count"
@@ -180,7 +207,7 @@
 <body>
   <header>
     <h1>College 🏈 TV Guide</h1>
-    <p style="font-size: 0.75rem;">Some FCS and G6 games are omitted. Neutral site games appear without site location. All times Central.</p>
+    <p>Some FCS and G6 games are omitted. Neutral site games appear without site location. All times Central.</p>
   </header>
 
   <div class="controls">
@@ -201,6 +228,35 @@
     </div>
 
     <div class="control-group">
+      <label for="teamFilter">Team Search</label>
+      <input type="text" id="teamFilter" placeholder="e.g. LSU, Texas...">
+    </div>
+
+    <div class="control-group">
+      <label for="confFilter">Conference</label>
+      <select id="confFilter">
+        <option value="">All Conferences</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="networkFilter">Network</label>
+      <select id="networkFilter">
+        <option value="">All Networks</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="timeFilter">Time Slot</label>
+      <select id="timeFilter">
+        <option value="">All Times</option>
+        <option value="early">Early (Before 2:30pm)</option>
+        <option value="afternoon">Afternoon (2:30pm–5:59pm)</option>
+        <option value="night">Night (6:00pm & later)</option>
+      </select>
+    </div>
+
+    <div class="control-group">
       <label for="sortBy">Sort By</label>
       <select id="sortBy">
         <option value="time">Game Time</option>
@@ -214,8 +270,33 @@
 
   <script>
     let allGames = [];
+    let teamsLookup = {};
 
-    // 1. Date formatting helper for nice dropdown labels (e.g. "Sat, Aug 29, 2026")
+    // 1. Helper to extract Away and Home teams from matchup string
+    function parseMatchup(matchupStr) {
+      if (!matchupStr) return { away: '', home: '' };
+      const parts = matchupStr.split(/\s+(?:at|vs\.?)\s+/i);
+      return {
+        away: parts[0] ? parts[0].trim() : '',
+        home: parts[1] ? parts[1].trim() : ''
+      };
+    }
+
+    // 2. Replication of Excel Watch Score formula:
+    // (Away TeamValue + Away ConfValue) + (Home TeamValue + Home ConfValue)
+    function computeWatchScore(matchupStr) {
+      const { away, home } = parseMatchup(matchupStr);
+
+      const awayData = teamsLookup[away] || { teamValue: 0, confValue: 0, conference: 'ZERO' };
+      const homeData = teamsLookup[home] || { teamValue: 0, confValue: 0, conference: 'ZERO' };
+
+      const awayTotal = (awayData.teamValue || 0) + (awayData.confValue || 0);
+      const homeTotal = (homeData.teamValue || 0) + (homeData.confValue || 0);
+
+      return awayTotal + homeTotal;
+    }
+
+    // 3. Date formatting helper for dropdown labels
     function formatDateLabel(dateStr) {
       const [year, month, day] = dateStr.split('-').map(Number);
       const dateObj = new Date(year, month - 1, day);
@@ -227,7 +308,7 @@
       });
     }
 
-    // 2. Helper to find nearest future date
+    // 4. Helper to find nearest future date
     function getNearestFutureDate(games) {
       if (!games || games.length === 0) return '';
       const now = new Date();
@@ -241,11 +322,11 @@
       return nextFutureDate || uniqueDates[uniqueDates.length - 1];
     }
 
-    // 3. Helper to convert time strings (e.g., "2:30pm") into minutes for chronological sorting
+    // 5. Helper to convert time strings into minutes for chronological sorting & time slots
     function parseTimeString(timeStr) {
-      if (!timeStr) return 0;
+      if (!timeStr || timeStr.toUpperCase() === 'TBD') return 9999;
       const match = timeStr.trim().match(/^(\d+):(\d+)\s*(am|pm)$/i);
-      if (!match) return 0;
+      if (!match) return 9999;
       let hours = parseInt(match[1], 10);
       const minutes = parseInt(match[2], 10);
       const period = match[3].toLowerCase();
@@ -256,7 +337,7 @@
       return hours * 60 + minutes;
     }
 
-    // 4. Color class badge selector
+    // 6. Color class badge selector
     function getScoreClass(score) {
       if (score >= 22) return 'score-elite';
       if (score >= 18) return 'score-high';
@@ -265,20 +346,58 @@
       return 'score-low';
     }
 
-    // 5. Render function
+    // 7. Render function
     function renderGames() {
       const selectedDate = document.getElementById('datePicker').value;
       const minScore = parseInt(document.getElementById('scoreFilter').value, 10);
+      const teamSearch = (document.getElementById('teamFilter').value || '').trim().toLowerCase();
+      const selectedConf = document.getElementById('confFilter').value;
+      const selectedNetwork = document.getElementById('networkFilter').value;
+      const selectedTimeSlot = document.getElementById('timeFilter').value;
       const sortCriteria = document.getElementById('sortBy').value;
+
       const grid = document.getElementById('gamesGrid');
       grid.innerHTML = '';
 
       let filtered = allGames.filter(game => {
+        // Date match
         const matchesDate = !selectedDate || game.date === selectedDate;
+
+        // Score match
         const matchesScore = (game.score || 0) >= minScore;
-        return matchesDate && matchesScore;
+
+        // Team Search match
+        const matchesTeam = !teamSearch || game.matchup.toLowerCase().includes(teamSearch);
+
+        // Conference match (either away or home team belongs to conference)
+        let matchesConf = true;
+        if (selectedConf) {
+          const { away, home } = parseMatchup(game.matchup);
+          const awayConf = teamsLookup[away]?.conference || '';
+          const homeConf = teamsLookup[home]?.conference || '';
+          matchesConf = (awayConf === selectedConf || homeConf === selectedConf);
+        }
+
+        // Network match
+        const matchesNetwork = !selectedNetwork || game.network === selectedNetwork;
+
+        // Time Slot match (Central Time)
+        let matchesTimeSlot = true;
+        if (selectedTimeSlot) {
+          const minutes = parseTimeString(game.time);
+          if (selectedTimeSlot === 'early') {
+            matchesTimeSlot = minutes < (14 * 60 + 30); // Before 2:30 PM
+          } else if (selectedTimeSlot === 'afternoon') {
+            matchesTimeSlot = minutes >= (14 * 60 + 30) && minutes < (18 * 60); // 2:30 PM to 5:59 PM
+          } else if (selectedTimeSlot === 'night') {
+            matchesTimeSlot = minutes >= (18 * 60) && minutes < 9999; // 6:00 PM and later
+          }
+        }
+
+        return matchesDate && matchesScore && matchesTeam && matchesConf && matchesNetwork && matchesTimeSlot;
       });
 
+      // Sorting
       filtered.sort((a, b) => {
         if (sortCriteria === 'score') {
           return (b.score || 0) - (a.score || 0);
@@ -301,47 +420,95 @@
         card.innerHTML = `
           <div class="card-header">
             <span class="time">${game.time}</span>
+            <span class="network">📺 ${game.network}</span>
             <span class="score-badge ${scoreClass}">Score: ${game.score}</span>
           </div>
           <div class="matchup">${game.matchup}</div>
-          <div class="network">📺 ${game.network}</div>
         `;
         grid.appendChild(card);
       });
     }
 
-    // 6. Fetch and load games
+    // 8. Populate dynamic filter dropdowns (Dates, Conferences, Networks)
+    function populateDropdowns() {
+      // 1. Populate Date Selector
+      const uniqueDates = [...new Set(allGames.map(g => g.date))].sort();
+      const dateSelect = document.getElementById('datePicker');
+      dateSelect.innerHTML = '<option value="">All Dates</option>';
+      
+      uniqueDates.forEach(date => {
+        const option = document.createElement('option');
+        option.value = date;
+        option.textContent = formatDateLabel(date);
+        dateSelect.appendChild(option);
+      });
+
+      const defaultDate = getNearestFutureDate(allGames);
+      dateSelect.value = defaultDate;
+
+      // 2. Populate Conference Selector
+      const confSelect = document.getElementById('confFilter');
+      const uniqueConfs = [...new Set(
+        Object.values(teamsLookup)
+          .map(t => t.conference)
+          .filter(c => c && c !== 'ZERO' && c !== 'FCS')
+      )].sort();
+
+      confSelect.innerHTML = '<option value="">All Conferences</option>';
+      uniqueConfs.forEach(conf => {
+        const option = document.createElement('option');
+        option.value = conf;
+        option.textContent = conf;
+        confSelect.appendChild(option);
+      });
+
+      // 3. Populate Network Selector
+      const networkSelect = document.getElementById('networkFilter');
+      const uniqueNetworks = [...new Set(allGames.map(g => g.network).filter(Boolean))].sort();
+
+      networkSelect.innerHTML = '<option value="">All Networks</option>';
+      uniqueNetworks.forEach(net => {
+        const option = document.createElement('option');
+        option.value = net;
+        option.textContent = net;
+        networkSelect.appendChild(option);
+      });
+    }
+
+    // 9. Fetch and load games + team lookups
     async function loadGames() {
       try {
-        const response = await fetch('games.json');
-        allGames = await response.json();
+        const [gamesRes, teamsRes] = await Promise.all([
+          fetch('games.json'),
+          fetch('teams.json')
+        ]);
+
+        const rawGames = await gamesRes.json();
+        teamsLookup = await teamsRes.json();
+
+        // Calculate watch score dynamically
+        allGames = rawGames.map(game => ({
+          ...game,
+          score: computeWatchScore(game.matchup)
+        }));
         
         if (allGames && allGames.length > 0) {
-          const uniqueDates = [...new Set(allGames.map(g => g.date))].sort();
-
-          const dateSelect = document.getElementById('datePicker');
-          dateSelect.innerHTML = '';
-          
-          uniqueDates.forEach(date => {
-            const option = document.createElement('option');
-            option.value = date;
-            option.textContent = formatDateLabel(date);
-            dateSelect.appendChild(option);
-          });
-
-          const defaultDate = getNearestFutureDate(allGames);
-          dateSelect.value = defaultDate;
+          populateDropdowns();
         }
 
         renderGames();
       } catch (err) {
-        console.error('Error loading games:', err);
+        console.error('Error loading games or teams lookup:', err);
       }
     }
 
-    // 7. Event Listeners
+    // 10. Event Listeners
     document.getElementById('datePicker').addEventListener('change', renderGames);
     document.getElementById('scoreFilter').addEventListener('change', renderGames);
+    document.getElementById('teamFilter').addEventListener('input', renderGames);
+    document.getElementById('confFilter').addEventListener('change', renderGames);
+    document.getElementById('networkFilter').addEventListener('change', renderGames);
+    document.getElementById('timeFilter').addEventListener('change', renderGames);
     document.getElementById('sortBy').addEventListener('change', renderGames);
 
     // Initialize
